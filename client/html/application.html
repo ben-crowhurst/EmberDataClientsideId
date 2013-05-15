@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Mobaq</title>
+        <base href="../" target="_blank" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+        <link rel="stylesheet" media="all" href="style/application.css"/>
+
+        <script src="script/library/uuid.js"></script>
+        <script src="script/library/jquery.js"></script>
+        <script src="script/library/handlebars.js"></script>
+        <script src="script/library/ember.js"></script>
+        <script src="script/library/ember-data.js"></script>
+
+        <script src="script/application.js"></script>
+
+        <script src="script/router/router.js"></script>
+        <script src="script/router/route/notebook/index.js"></script>
+
+        <script src="script/data/store.js"></script>
+        <script src="script/data/adapter.js"></script>
+        <script src="script/data/setup.js"></script>
+        <script src="script/data/serializer/array.js"></script>
+        <script src="script/data/serializer/object.js"></script>
+
+        <script src="script/model/notebook.js"></script>
+        <script src="script/model/pnc/nominal/search.js"></script>
+        <script src="script/model/pnc/nominal/result.js"></script>
+        <script src="script/model/pnc/vehicle/search.js"></script>
+        <script src="script/model/pnc/vehicle/result.js"></script>
+        <script src="script/model/pnc/vehicle/keeper.js"></script>
+        <script src="script/model/pnc/vehicle/report.js"></script>
+
+        <script src="script/controller/notebook/entry.js"></script>
+    </head>
+    <body class="container">
+        <script type="text/x-handlebars" data-template-name="application">
+            <section>
+                {{outlet}}
+            </section>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="index">
+            {{#linkTo notebook.index}}
+                New Notebook
+            {{/linkTo}}
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="notebook">
+            {{outlet}}
+        </script>  
+
+        <script type="text/x-handlebars" data-template-name="notebook/entry">
+            <p>
+                <h1>
+                    Notebook Entry
+                </h1>
+            </p>
+            <button {{action searchNominal}}>Nominal Search</button>
+            <button {{action searchVehicle}}>Vehicle Search</button>
+            <pre>
+
+                id: {{id}}
+                title: {{title}}
+                notes: {{notes}}
+                <h3>
+                    Nominal Searches:
+                    <hr/>
+                </h3>
+                {{#each search in pncNominalSearches}}
+                    <strong>Nominal Criteria:</strong>
+                    status: {{search.status}}
+                    pncid: {{search.pncid}}
+                    surname: {{search.surname}}
+                    dob: {{search.dateOfBirth}}
+                    reason: {{search.reason}}
+                    location: {{search.location}}
+                    originator: {{search.originator}}
+                    
+                    <strong>Nominal Results:</strong>
+                    {{#each result in search.results}}
+                        colour: {{result.colour}}
+                        reportIndicators: {{result.reportIndicators}}
+                        sisid {{result.sisid}}
+                        name: {{result.name}}
+                        matchedSerialNo: {{result.matchedSerialNo}}
+                        dob: {{result.dob}}
+                        gender: {{result.gender}}
+                        nominal: {{result.nominal}}
+                        matchedDobSerialNo: {{result.matchedDobSerialNo}}
+                        pncid: {{result.pncid}}
+                        placeOfBirth: {{result.placeOfBirth}}
+                    {{/each}}
+
+                    <button {{action refresh}}>Refresh</button>
+                {{/each}}
+                
+                <h3>
+                    Vehicle Searches:
+                    <hr/>
+                </h3>
+                {{#each search in pncVehicleSearches}}
+                    <strong>Vehicle Criteria:</strong>
+                    status: {{search.status}}
+                    vrm: {{search.vrm}}
+                    reason: {{search.reason}}
+                    location: {{search.location}}
+                    originator: {{search.originator}}
+                    
+                    {{#each result in search.results}}
+                    <strong>Vehicle Results:</strong>
+                        vrm: {{result.vrm}}
+                        make: {{result.make}}
+                        model: {{result.model}}
+                        colour: {{result.colour}}
+                        bodyType: {{result.bodyType}}
+                        engineNumber: {{result.engineNumber}}
+                        engineCapacity: {{result.engineCapacity}}
+                        whenRegistered: {{result.whenRegistered}}
+                        chassisFrameNumber: {{result.chassisFrameNumber}}
+
+                        <strong>Keeper:</strong>
+                        since: {{result.keeper.since}}
+                        name: {{result.keeper.name}}
+                        addressLines: {{result.keeper.addressLines}}
+                        postcode: {{result.keeper.postcode}}
+
+                        {{#each report in result.reports}}
+                        <strong>Vehicle Reports:</strong>
+                        owner: {{report.owner}}
+                        startDate: {{report.startDate}}
+                        endDate: {{report.endDate}}
+                        type: {{report.type}}
+                        reference: {{report.reference}}
+                        reportText: {{report.reportText}}
+                        sisid: {{report.sisid}}
+                        pageHeading: {{report.pageHeading}}
+                        actionsToBeTaken: {{report.actionsToBeTaken}}
+                        hazardText: {{report.hazardText}}
+                        {{/each}}                        
+                    {{/each}}
+                    <button {{action refresh}}>Refresh</button>
+                {{/each}}
+            </pre>
+        </script> 
+    </body>
+</html>
