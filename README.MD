@@ -1,6 +1,8 @@
 EmberDataSetup
 ==============
-Ember Data Clientside Identifier with Nodejs backend.
+Example of ember-data with clientside Identifiers and a Nodejs backend.
+
+Its not bug-proof and is just a proof of concept.
 
 PREREQUISITES
 ==============
@@ -11,7 +13,7 @@ Node Package Manager (npm) - https://npmjs.org/
 INSTALLATION
 ==============
 
-$ cd EmberDataClientsideId
+$ cd EmberDataClientsideId/service
 
 $ npm install
 
@@ -19,6 +21,6 @@ RUNNING
 ==============
 $ node source/service.js
 
-Open http://localhost:3000/html/application.html#/
+Open http://127.0.0.1:3000/html/application.html#/
 
 View both browser Javascript console and terminal window for output/logging.
