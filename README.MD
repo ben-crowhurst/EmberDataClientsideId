@@ -1,4 +1,4 @@
-EmberDataSetup
+Ember Data Clientside ID spike
 ==============
 Example of ember-data with client-side Identifiers and a Nodejs backend.
 
